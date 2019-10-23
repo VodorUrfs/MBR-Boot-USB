@@ -1,5 +1,5 @@
 # Define Path to the Windows ISO
-$ISOFile = "C:\Temp\WindowsServer2019.iso"
+$ISOFile = "C:\Temp\SW_DVD9_Win_Pro_Ent_Edu_N_10_1809_64-bit_English_MLF_X21-96501.iso"
  
 # Get the USB Drive you want to use, copy the friendly name
 #Get-Disk | Where BusType -eq "USB"
