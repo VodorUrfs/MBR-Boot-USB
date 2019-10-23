@@ -7,7 +7,7 @@ $ISOFile = "C:\Temp\SW_DVD9_Win_Pro_Ent_Edu_N_10_1809_64-bit_English_MLF_X21-965
 # Get the right USB Drive (You will need to change the FriendlyName)
 #$USBDrive = Get-Disk | Where FriendlyName -eq "Kingston DT Workspace"
 $USBDrive = Get-Disk | Where-Object BusType -eq USB | Out-GridView -Title 'Select USB Drive to Format' -OutputMode Single |
-Clear-Disk -RemoveData -RemoveData -Confirm:$false -PassThru | Initialize-Disk -PartitionStyle MBR 
+Clear-Disk -RemoveData -Confirm:$false -PassThru | Initialize-Disk -PartitionStyle MBR 
  
 # Create partition primary and format to NTFS
 $Volume = $USBDrive | New-Partition -UseMaximumSize -AssignDriveLetter | Format-Volume -FileSystem NTFS -NewFileSystemLabel USBBOOTDISK
