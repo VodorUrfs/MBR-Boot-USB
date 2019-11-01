@@ -1,0 +1,18 @@
+$Results = Get-Disk |
+Where-Object BusType -eq USB |
+Out-GridView -Title 'Select USB Drive to Format' -OutputMode Single |
+Clear-Disk -RemoveData -RemoveOEM -Confirm:$false -PassThru |
+New-Partition -UseMaximumSize -IsActive -AssignDriveLetter |
+Format-Volume -FileSystem FAT32
+
+pause
+
+$Volumes = (Get-Volume).Where({$_.DriveLetter}).DriveLetter
+Mount-DiskImage -ImagePath "D:\SW_DVD9_Win_Pro_Ent_Edu_N_10_1809_64-bit_English_MLF_X21-96501.ISO"
+$ISO = (Compare-Object -ReferenceObject $Volumes -DifferenceObject (Get-Volume).Where({$_.DriveLetter}).DriveLetter).InputObject
+
+pause
+
+Set-Location -Path "$($ISO):\boot"
+bootsect.exe /nt60 "$($Results.DriveLetter):"
+Copy-Item -Path "$($ISO):\*" -Destination "$($Results.DriveLetter):" -Recurse -Verbose
